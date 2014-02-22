@@ -2,6 +2,7 @@
 
 namespace TylerSommer\Nice\Benchmark;
 
+use TylerSommer\Nice\Benchmark\ResultPrinter\SimplePrinter;
 use TylerSommer\Nice\Benchmark\Test\CallableTest;
 
 /**
@@ -25,11 +26,18 @@ class Benchmark
     protected $results = array();
 
     /**
-     * @param int $length The number of iterations per test
+     * @var ResultPrinter
      */
-    public function __construct($length = 1000)
+    private $resultPrinter;
+
+    /**
+     * @param int           $length        The number of iterations per test
+     * @param ResultPrinter $resultPrinter The ResultPrinter to be used
+     */
+    public function __construct($length = 1000, ResultPrinter $resultPrinter = null)
     {
         $this->length = $length;
+        $this->resultPrinter = $resultPrinter ?: new SimplePrinter();
     }
 
     /**
@@ -65,32 +73,7 @@ class Benchmark
                 ) . " secs.\n";
             $this->results[$test->getName()] = $avg;
         }
-        asort($this->results);
-        reset($this->results);
-        $fastestResult = each($this->results);
-        reset($this->results);
-        echo "\n\nResults:\n";
-        printf("%-35s\t%-20s\t%-20s\t%s\n", "Test Name", "Time", "+ Interval", "Change");
-        foreach ($this->results as $name => $result) {
-            $interval = $result - $fastestResult["value"];
-            $change   = round((1 - $result / $fastestResult["value"]) * 100, 0);
-            if ($change == 0) {
-                $change = 'baseline';
-            } else {
-                $faster = true; // Cant really ever be faster, now can it
-                if ($change < 0) {
-                    $faster = false;
-                    $change *= -1;
-                }
-                $change .= '% ' . ($faster ? 'faster' : 'slower');
-            }
-            printf(
-                "%-35s\t%-20s\t%-20s\t%s\n",
-                $name,
-                sprintf("%.10f", $result),
-                "+" . sprintf("%.10f", $interval),
-                $change
-            );
-        }
+        
+        $this->resultPrinter->output($this->results);
     }
 }
