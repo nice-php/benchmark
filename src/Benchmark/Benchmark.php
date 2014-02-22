@@ -44,11 +44,11 @@ class Benchmark
      * Register a test
      *
      * @param string   $name     (Friendly) Name of the test
-     * @param callback $callback A valid callback
+     * @param callable $callable A valid callable
      */
-    public function register($name, $callback)
+    public function register($name, $callable)
     {
-        $this->tests[] = new CallableTest($name, $callback);
+        $this->tests[] = new CallableTest($name, $callable);
     }
 
     /**

@@ -20,7 +20,7 @@ class CallableTest extends AbstractTest
      * @param string   $name
      * @param callable $test
      */
-    public function __construct($name, callable $test)
+    public function __construct($name, $test)
     {
         $this->name = $name;
         $this->test = $test;
