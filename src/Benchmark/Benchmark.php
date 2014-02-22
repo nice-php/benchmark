@@ -2,6 +2,8 @@
 
 namespace TylerSommer\Nice\Benchmark;
 
+use TylerSommer\Nice\Benchmark\Test\CallableTest;
+
 /**
  * A Simple Operation Benchmark Class
  */
@@ -13,7 +15,7 @@ class Benchmark
     protected $length;
 
     /**
-     * @var array|callable[]
+     * @var array|Test[]
      */
     protected $tests = array();
 
@@ -38,7 +40,7 @@ class Benchmark
      */
     public function register($name, $callback)
     {
-        $this->tests[$name] = $callback;
+        $this->tests[] = new CallableTest($name, $callback);
     }
 
     /**
@@ -48,15 +50,8 @@ class Benchmark
     {
         $adjustment = round($this->length * .1, 0);
         echo "Running " . count($this->tests) . " tests, {$this->length} times each...\nThe {$adjustment} highest and lowest results will be disregarded.\n\n";
-        foreach ($this->tests as $name => $test) {
-            $results = array();
-            for ($x = 0; $x < $this->length; $x++) {
-                ob_start();
-                $start = time() + microtime();
-                call_user_func($test);
-                $results[] = round((time() + microtime()) - $start, 10);
-                ob_end_clean();
-            }
+        foreach ($this->tests as $test) {
+            $results = $test->run($this->length);
             sort($results);
             // remove the lowest and highest 10% (leaving 80% of results)
             for ($x = 0; $x < $adjustment; $x++) {
@@ -64,11 +59,11 @@ class Benchmark
                 array_pop($results);
             }
             $avg = array_sum($results) / count($results);
-            echo "For {$name}, out of " . count($results) . " runs, average time was: " . sprintf(
+            echo "For " . $test->getName() . ", out of " . count($results) . " runs, average time was: " . sprintf(
                     "%.10f",
                     $avg
                 ) . " secs.\n";
-            $this->results[$name] = $avg;
+            $this->results[$test->getName()] = $avg;
         }
         asort($this->results);
         reset($this->results);
