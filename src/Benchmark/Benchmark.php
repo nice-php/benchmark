@@ -56,24 +56,44 @@ class Benchmark
      */
     public function execute()
     {
-        $adjustment = round($this->length * .1, 0);
-        echo "Running " . count($this->tests) . " tests, {$this->length} times each...\nThe {$adjustment} highest and lowest results will be disregarded.\n\n";
+        printf(
+            "Running %d tests, %d times each...\nValues that fall outside of 3 standard deviations of the mean will be discarded.\n\n",
+            count($this->tests),
+            $this->length
+        );
         foreach ($this->tests as $test) {
             $results = $test->run($this->length);
-            sort($results);
-            // remove the lowest and highest 10% (leaving 80% of results)
-            for ($x = 0; $x < $adjustment; $x++) {
-                array_shift($results);
-                array_pop($results);
-            }
+            $results = $this->pruneResults($results);
             $avg = array_sum($results) / count($results);
-            echo "For " . $test->getName() . ", out of " . count($results) . " runs, average time was: " . sprintf(
-                    "%.10f",
-                    $avg
-                ) . " secs.\n";
+            printf(
+                "For %s out of %d runs, average time was %.10f seconds.\n",
+                $test->getName(),
+                count($results),
+                $avg
+            );
             $this->results[$test->getName()] = $avg;
         }
         
         $this->resultPrinter->output($this->results);
     }
+
+    protected function pruneResults(array $data) {
+        $mean = array_sum($data) / count($data);
+        $three_deviations = 3 * $this->standardDeviation($data, $mean);
+        $lower = $mean - $three_deviations;
+        $upper = $mean + $three_deviations;
+        return array_filter($data, function($val) use ($lower, $upper) {
+            return $val >= $lower && $val <= $upper;
+        });
+    }
+
+    private function standardDeviation(array $data, $mean) {
+        $initial = 0;
+        $f = function ($val, $carry) use ($mean) {
+            return $carry + pow($val - $mean, 2);
+        };
+        $sum = array_reduce($data, $f, $initial);
+        return sqrt($sum / count($data));
+    }
+
 }
