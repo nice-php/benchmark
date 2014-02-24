@@ -93,7 +93,8 @@ class Benchmark
             return $carry + pow($val - $mean, 2);
         };
         $sum = array_reduce($data, $f, $initial);
-        return sqrt($sum / count($data));
+        $n = count($data) - 1;
+        return sqrt($sum / $n);
     }
 
 }
