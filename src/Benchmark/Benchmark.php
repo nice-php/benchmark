@@ -89,7 +89,7 @@ class Benchmark
 
     private function standardDeviation(array $data, $mean) {
         $initial = 0;
-        $f = function ($val, $carry) use ($mean) {
+        $f = function ($carry, $val) use ($mean) {
             return $carry + pow($val - $mean, 2);
         };
         $sum = array_reduce($data, $f, $initial);
