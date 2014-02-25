@@ -3,6 +3,7 @@
 namespace TylerSommer\Nice\Benchmark;
 
 use TylerSommer\Nice\Benchmark\ResultPrinter\SimplePrinter;
+use TylerSommer\Nice\Benchmark\ResultPruner\StandardDeviationPruner;
 use TylerSommer\Nice\Benchmark\Test\CallableTest;
 
 /**
@@ -31,13 +32,23 @@ class Benchmark
     private $resultPrinter;
 
     /**
+     * @var ResultPruner
+     */
+    private $resultPruner;
+
+    /**
      * @param int           $length        The number of iterations per test
      * @param ResultPrinter $resultPrinter The ResultPrinter to be used
+     * @param ResultPruner  $resultPruner  The ResultPruner to be used
      */
-    public function __construct($length = 1000, ResultPrinter $resultPrinter = null)
-    {
+    public function __construct(
+        $length = 1000, 
+        ResultPrinter $resultPrinter = null,
+        ResultPruner $resultPruner = null
+    ) {
         $this->length = $length;
         $this->resultPrinter = $resultPrinter ?: new SimplePrinter();
+        $this->resultPruner = $resultPruner ?: new StandardDeviationPruner();
     }
 
     /**
@@ -63,7 +74,7 @@ class Benchmark
         );
         foreach ($this->tests as $test) {
             $results = $test->run($this->length);
-            $results = $this->pruneResults($results);
+            $results = $this->resultPruner->prune($results);
             $avg = array_sum($results) / count($results);
             printf(
                 "For %s out of %d runs, average time was %.10f seconds.\n",
@@ -76,25 +87,4 @@ class Benchmark
         
         $this->resultPrinter->output($this->results);
     }
-
-    protected function pruneResults(array $data) {
-        $mean = array_sum($data) / count($data);
-        $three_deviations = 3 * $this->standardDeviation($data, $mean);
-        $lower = $mean - $three_deviations;
-        $upper = $mean + $three_deviations;
-        return array_filter($data, function($val) use ($lower, $upper) {
-            return $val >= $lower && $val <= $upper;
-        });
-    }
-
-    private function standardDeviation(array $data, $mean) {
-        $initial = 0;
-        $f = function ($carry, $val) use ($mean) {
-            return $carry + pow($val - $mean, 2);
-        };
-        $sum = array_reduce($data, $f, $initial);
-        $n = count($data) - 1;
-        return sqrt($sum / $n);
-    }
-
 }
