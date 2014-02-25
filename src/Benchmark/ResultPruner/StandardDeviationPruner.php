@@ -58,4 +58,14 @@ class StandardDeviationPruner implements ResultPruner
         
         return sqrt($sum / $n);
     }
+
+    /**
+     * Gets a string describing this pruner
+     * 
+     * @return string
+     */
+    public function getDescription()
+    {
+        return 'Values that fall outside of 3 standard deviations of the mean will be discarded.';
+    }
 }

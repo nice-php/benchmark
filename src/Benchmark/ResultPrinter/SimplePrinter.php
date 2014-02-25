@@ -2,7 +2,9 @@
 
 namespace TylerSommer\Nice\Benchmark\ResultPrinter;
 
+use TylerSommer\Nice\Benchmark\Benchmark;
 use TylerSommer\Nice\Benchmark\ResultPrinter;
+use TylerSommer\Nice\Benchmark\Test;
 
 /**
  * A simple ResultPrinter
@@ -10,17 +12,50 @@ use TylerSommer\Nice\Benchmark\ResultPrinter;
 class SimplePrinter implements ResultPrinter
 {
     /**
+     * Outputs an introduction prior to test execution
+     * 
+     * @param Benchmark $benchmark
+     */
+    public function printIntro(Benchmark $benchmark)
+    {
+        printf(
+            "Running %d tests, %d times each...\n%s\n\n",
+            count($benchmark->getTests()),
+            $benchmark->getIterations(),
+            $benchmark->getResultPruner()->getDescription()
+        );
+    }
+
+    /**
+     * Print the result of a single result
+     *
+     * @param Test  $test
+     * @param array $results
+     */
+    public function printSingleResult(Test $test, array $results)
+    {
+        printf(
+            "For %s out of %d runs, average time was %.10f seconds.\n",
+            $test->getName(),
+            count($results),
+            array_sum($results) / count($results)
+        );
+    }
+    
+    /**
      * Prints the results
      *
      * @param array $results
      */
-    public function output(array $results)
+    public function printResultSummary(Benchmark $benchmark, array $results)
     {
+        $format = "%-35s\t%-20s\t%-20s\t%s\n";
+        
         asort($results);
         reset($results);
         $fastestResult = each($results);
         echo "\n\nResults:\n";
-        printf("%-35s\t%-20s\t%-20s\t%s\n", "Test Name", "Time", "+ Interval", "Change");
+        printf($format, "Test Name", "Time", "+ Interval", "Change");
         foreach ($results as $name => $result) {
             $interval = $result - $fastestResult["value"];
             $change   = round((1 - $result / $fastestResult["value"]) * 100, 0);
@@ -34,8 +69,9 @@ class SimplePrinter implements ResultPrinter
                 }
                 $change .= '% ' . ($faster ? 'faster' : 'slower');
             }
+            
             printf(
-                "%-35s\t%-20s\t%-20s\t%s\n",
+                $format,
                 $name,
                 sprintf("%.10f", $result),
                 "+" . sprintf("%.10f", $interval),

@@ -14,7 +14,7 @@ class Benchmark
     /**
      * @var int
      */
-    protected $length;
+    protected $iterations;
 
     /**
      * @var array|Test[]
@@ -37,16 +37,16 @@ class Benchmark
     private $resultPruner;
 
     /**
-     * @param int           $length        The number of iterations per test
+     * @param int           $iterations    The number of iterations per test
      * @param ResultPrinter $resultPrinter The ResultPrinter to be used
      * @param ResultPruner  $resultPruner  The ResultPruner to be used
      */
     public function __construct(
-        $length = 1000, 
+        $iterations = 1000, 
         ResultPrinter $resultPrinter = null,
         ResultPruner $resultPruner = null
     ) {
-        $this->length = $length;
+        $this->iterations = $iterations;
         $this->resultPrinter = $resultPrinter ?: new SimplePrinter();
         $this->resultPruner = $resultPruner ?: new StandardDeviationPruner();
     }
@@ -67,24 +67,50 @@ class Benchmark
      */
     public function execute()
     {
-        printf(
-            "Running %d tests, %d times each...\nValues that fall outside of 3 standard deviations of the mean will be discarded.\n\n",
-            count($this->tests),
-            $this->length
-        );
+        $this->resultPrinter->printIntro($this);
+        
         foreach ($this->tests as $test) {
-            $results = $test->run($this->length);
+            $results = $test->run($this->iterations);
             $results = $this->resultPruner->prune($results);
             $avg = array_sum($results) / count($results);
-            printf(
-                "For %s out of %d runs, average time was %.10f seconds.\n",
-                $test->getName(),
-                count($results),
-                $avg
-            );
+            
+            $this->resultPrinter->printSingleResult($test, $results);
+            
             $this->results[$test->getName()] = $avg;
         }
         
-        $this->resultPrinter->output($this->results);
+        $this->resultPrinter->printResultSummary($this, $this->results);
+    }
+
+    /**
+     * @return array|\TylerSommer\Nice\Benchmark\Test[]
+     */
+    public function getTests()
+    {
+        return $this->tests;
+    }
+
+    /**
+     * @return \TylerSommer\Nice\Benchmark\ResultPruner
+     */
+    public function getResultPruner()
+    {
+        return $this->resultPruner;
+    }
+
+    /**
+     * @return \TylerSommer\Nice\Benchmark\ResultPrinter
+     */
+    public function getResultPrinter()
+    {
+        return $this->resultPrinter;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIterations()
+    {
+        return $this->iterations;
     }
 }

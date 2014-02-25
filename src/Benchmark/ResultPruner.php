@@ -15,4 +15,11 @@ interface ResultPruner
      * @return array The pruned results
      */
     public function prune(array $results);
+
+    /**
+     * Gets a string describing this pruner
+     * 
+     * @return string
+     */
+    public function getDescription();
 }
