@@ -50,6 +50,10 @@ class SimplePrinter implements ResultPrinter
     public function printResultSummary(Benchmark $benchmark, array $results)
     {
         $format = "%-35s\t%-20s\t%-20s\t%s\n";
+
+        $results = array_map(function($result) {
+                return array_sum($result) / count($result);
+            }, $results);
         
         asort($results);
         reset($results);

@@ -51,6 +51,10 @@ class MarkdownPrinter implements ResultPrinter
      */
     public function printResultSummary(Benchmark $benchmark, array $results)
     {
+        $results = array_map(function($result) {
+                return array_sum($result) / count($result);
+            }, $results);
+        
         $template = "%s | %s | %s | %s\n";
         asort($results);
         reset($results);

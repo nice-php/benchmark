@@ -70,13 +70,11 @@ class Benchmark
         $this->resultPrinter->printIntro($this);
         
         foreach ($this->tests as $test) {
-            $results = $test->run($this->iterations);
-            $results = $this->resultPruner->prune($results);
-            $avg = array_sum($results) / count($results);
-            
+            $results = $this->resultPruner->prune($test->run($this->iterations));
+
             $this->resultPrinter->printSingleResult($test, $results);
             
-            $this->results[$test->getName()] = $avg;
+            $this->results[$test->getName()] = $results;
         }
         
         $this->resultPrinter->printResultSummary($this, $this->results);
