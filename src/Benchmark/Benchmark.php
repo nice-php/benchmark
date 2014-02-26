@@ -178,13 +178,13 @@ class Benchmark implements BenchmarkInterface
      */
     public function setIterations($iterations)
     {
-        $this->iterations = $iterations;
+        $this->iterations = (int) $iterations;
     }
 
     /**
      * @param \TylerSommer\Nice\Benchmark\ResultPrinterInterface $resultPrinter
      */
-    public function setResultPrinter($resultPrinter)
+    public function setResultPrinter(ResultPrinterInterface $resultPrinter)
     {
         $this->resultPrinter = $resultPrinter;
     }
@@ -192,7 +192,7 @@ class Benchmark implements BenchmarkInterface
     /**
      * @param \TylerSommer\Nice\Benchmark\ResultPrunerInterface $resultPruner
      */
-    public function setResultPruner($resultPruner)
+    public function setResultPruner(ResultPrunerInterface $resultPruner)
     {
         $this->resultPruner = $resultPruner;
     }
