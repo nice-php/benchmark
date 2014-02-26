@@ -7,13 +7,6 @@ namespace TylerSommer\Nice\Benchmark;
 interface BenchmarkInterface
 {
     /**
-     * Add a Test to the Benchmark
-     * 
-     * @param TestInterface $test
-     */
-    public function addTest(TestInterface $test);
-
-    /**
      * Get the name of the Benchmark
      * 
      * @return string
@@ -26,13 +19,6 @@ interface BenchmarkInterface
      * @return array|\TylerSommer\Nice\Benchmark\TestInterface[]
      */
     public function getTests();
-
-    /**
-     * Get the number of iterations the Benchmark should execute each test
-     * 
-     * @return int
-     */
-    public function getIterations();
 
     /**
      * Execute the registered tests and return the results
