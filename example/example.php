@@ -19,7 +19,7 @@ require __DIR__ . '/../vendor/autoload.php';
  */
 function setupStringBenchmark()
 {
-    $benchmark = new Benchmark(100000);
+    $benchmark = new Benchmark(100000, 'String matching');
     $benchmark->register('preg_match', function() {
             assert(preg_match('/^test/', 'testing'));
         });
@@ -40,7 +40,7 @@ function setupForeachBenchmark()
 {
     $arr = range(1, 10000);
 
-    $benchmark = new Benchmark(10000);
+    $benchmark = new Benchmark(10000, 'foreach');
     $benchmark->register('foreach with value', function() use ($arr) {
             foreach ($arr as $value) {
 
