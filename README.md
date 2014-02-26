@@ -1,5 +1,5 @@
-A nice PHP benchmark
-====================
+A nice PHP benchmarking framework
+=================================
 
 [![Build Status](https://travis-ci.org/tyler-sommer/nice-bench.png?branch=master)](https://travis-ci.org/tyler-sommer/nice-bench)
 
