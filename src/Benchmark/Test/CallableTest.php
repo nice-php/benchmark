@@ -25,7 +25,7 @@ class CallableTest implements TestInterface
 
     /**
      * Constructor
-     * 
+     *
      * @param string   $name
      * @param callable $test
      */

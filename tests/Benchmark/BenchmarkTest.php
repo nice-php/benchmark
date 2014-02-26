@@ -11,7 +11,6 @@ namespace TylerSommer\Nice\Tests\Benchmark;
 
 use TylerSommer\Nice\Benchmark\Benchmark;
 use TylerSommer\Nice\Benchmark\ResultPrinter\NullPrinter;
-use TylerSommer\Nice\Benchmark\ResultPrinterInterface;
 use TylerSommer\Nice\Benchmark\TestInterface;
 
 class BenchmarkTest extends \PHPUnit_Framework_TestCase
@@ -26,7 +25,7 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
             ->method('run');
         $benchmark = new Benchmark(10, 'Test', new NullPrinter());
         $benchmark->addTest($test);
-        
+
         $benchmark->execute();
     }
 

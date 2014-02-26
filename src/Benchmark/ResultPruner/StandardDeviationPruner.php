@@ -20,19 +20,19 @@ class StandardDeviationPruner implements ResultPrunerInterface
 
     /**
      * Constructor
-     * 
+     *
      * @param int $deviations
      */
     public function __construct($deviations = 3)
     {
         $this->deviations = $deviations;
     }
-    
+
     /**
      * Prune the results
      *
      * @param array $results
-     * 
+     *
      * @return array The pruned results
      */
     public function prune(array $results)
@@ -41,20 +41,21 @@ class StandardDeviationPruner implements ResultPrunerInterface
         $deviation = $this->deviations * $this->standardDeviation($results);
         $lower = $mean - $deviation;
         $upper = $mean + $deviation;
-        
-        return array_values(array_filter($results, function($val) use ($lower, $upper) {
+
+        return array_values(array_filter($results, function ($val) use ($lower, $upper) {
                 return $val >= $lower && $val <= $upper;
             }));
     }
 
     /**
      * Returns one standard deviation for the given results
-     * 
+     *
      * @param array $results
      *
      * @return float
      */
-    private function standardDeviation(array $results) {
+    private function standardDeviation(array $results)
+    {
         $mean = array_sum($results) / count($results);
         $initial = 0;
         $f = function ($carry, $val) use ($mean) {
@@ -62,13 +63,13 @@ class StandardDeviationPruner implements ResultPrunerInterface
         };
         $sum = array_reduce($results, $f, $initial);
         $n = count($results) - 1;
-        
+
         return $n === 0 ? 0 : sqrt($sum / $n);
     }
 
     /**
      * Gets a string describing this pruner
-     * 
+     *
      * @return string
      */
     public function getDescription()

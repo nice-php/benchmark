@@ -39,8 +39,8 @@ class MarkdownPrinter implements ResultPrinterInterface
     /**
      * Print the result of a single result
      *
-     * @param TestInterface  $test
-     * @param array $results
+     * @param TestInterface $test
+     * @param array         $results
      */
     public function printSingleResult(TestInterface $test, array $results)
     {
@@ -59,10 +59,10 @@ class MarkdownPrinter implements ResultPrinterInterface
      */
     public function printResultSummary(Benchmark $benchmark, array $results)
     {
-        $results = array_map(function($result) {
+        $results = array_map(function ($result) {
                 return array_sum($result) / count($result);
             }, $results);
-        
+
         $template = "%s | %s | %s | %s\n";
         asort($results);
         reset($results);

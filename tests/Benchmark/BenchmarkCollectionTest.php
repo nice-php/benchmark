@@ -11,11 +11,8 @@ namespace TylerSommer\Nice\Tests\Benchmark;
 
 use TylerSommer\Nice\Benchmark\Benchmark;
 use TylerSommer\Nice\Benchmark\BenchmarkCollection;
-use TylerSommer\Nice\Benchmark\ResultPrinter\NullPrinter;
-use TylerSommer\Nice\Benchmark\ResultPrinterInterface;
-use TylerSommer\Nice\Benchmark\TestInterface;
 
-class BenchmarkCollectionkTest extends \PHPUnit_Framework_TestCase
+class BenchmarkCollectionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * A simple test
@@ -32,7 +29,7 @@ class BenchmarkCollectionkTest extends \PHPUnit_Framework_TestCase
         $benchmarkTwo->expects($this->once())
             ->method('execute')
             ->will($this->returnValue(array()));
-        
+
         $collection->addBenchmark($benchmark);
         $collection->addBenchmark($benchmarkTwo);
 

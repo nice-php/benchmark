@@ -16,16 +16,16 @@ interface ResultPrinterInterface
 {
     /**
      * Outputs an introduction prior to test execution
-     * 
+     *
      * @param Benchmark $benchmark
      */
     public function printIntro(Benchmark $benchmark);
 
     /**
      * Print the result of a single result
-     * 
-     * @param TestInterface  $test
-     * @param array $results
+     *
+     * @param TestInterface $test
+     * @param array         $results
      */
     public function printSingleResult(TestInterface $test, array $results);
 

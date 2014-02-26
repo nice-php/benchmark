@@ -16,7 +16,7 @@ class BenchmarkCollection implements BenchmarkInterface
 
     /**
      * Constructor
-     * 
+     *
      * @param string $name
      */
     public function __construct($name = 'A simple bunch of benchmarks')
@@ -26,7 +26,7 @@ class BenchmarkCollection implements BenchmarkInterface
 
     /**
      * Add a Benchmark to this Collection
-     * 
+     *
      * @param BenchmarkInterface $benchmark
      */
     public function addBenchmark(BenchmarkInterface $benchmark)
@@ -55,7 +55,7 @@ class BenchmarkCollection implements BenchmarkInterface
         foreach ($this->benchmarks as $benchmark) {
             $tests += $benchmark->getTests();
         }
-        
+
         return $tests;
     }
 

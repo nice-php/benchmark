@@ -8,21 +8,21 @@ interface BenchmarkInterface
 {
     /**
      * Get the name of the Benchmark
-     * 
+     *
      * @return string
      */
     public function getName();
-    
+
     /**
      * Get all registered Tests
-     * 
+     *
      * @return array|\TylerSommer\Nice\Benchmark\TestInterface[]
      */
     public function getTests();
 
     /**
      * Execute the registered tests and return the results
-     * 
+     *
      * @return array The results
      */
     public function execute();

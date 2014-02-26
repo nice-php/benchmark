@@ -25,13 +25,13 @@ class StandardDeviationPrunerTest extends \PHPUnit_Framework_TestCase
             75,
             100
         );
-        
+
         $this->assertEquals(50, array_sum($results) / count($results));
-        
+
         $pruner = new StandardDeviationPruner(1);
-        
+
         $results = $pruner->prune($results);
-        
+
         $this->assertEquals(array(25, 50, 75), $results);
     }
 }

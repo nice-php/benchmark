@@ -20,7 +20,7 @@ class SimplePrinter implements ResultPrinterInterface
 {
     /**
      * Outputs an introduction prior to test execution
-     * 
+     *
      * @param Benchmark $benchmark
      */
     public function printIntro(Benchmark $benchmark)
@@ -37,8 +37,8 @@ class SimplePrinter implements ResultPrinterInterface
     /**
      * Print the result of a single result
      *
-     * @param TestInterface  $test
-     * @param array $results
+     * @param TestInterface $test
+     * @param array         $results
      */
     public function printSingleResult(TestInterface $test, array $results)
     {
@@ -49,7 +49,7 @@ class SimplePrinter implements ResultPrinterInterface
             array_sum($results) / count($results)
         );
     }
-    
+
     /**
      * Prints the results
      *
@@ -59,10 +59,10 @@ class SimplePrinter implements ResultPrinterInterface
     {
         $format = "%-35s\t%-20s\t%-20s\t%s\n";
 
-        $results = array_map(function($result) {
+        $results = array_map(function ($result) {
                 return array_sum($result) / count($result);
             }, $results);
-        
+
         asort($results);
         reset($results);
         $fastestResult = each($results);
@@ -81,7 +81,7 @@ class SimplePrinter implements ResultPrinterInterface
                 }
                 $change .= '% ' . ($faster ? 'faster' : 'slower');
             }
-            
+
             printf(
                 $format,
                 $name,

@@ -22,7 +22,7 @@ class Benchmark implements BenchmarkInterface
      * @var string
      */
     protected $name;
-    
+
     /**
      * @var int
      */
@@ -50,14 +50,14 @@ class Benchmark implements BenchmarkInterface
 
     /**
      * Constructor
-     * 
+     *
      * @param int                    $iterations    The number of iterations per test
      * @param string                 $name          The name of this Benchmark
      * @param ResultPrinterInterface $resultPrinter The ResultPrinterInterface to be used
      * @param ResultPrunerInterface  $resultPruner  The ResultPrunerInterface to be used
      */
     public function __construct(
-        $iterations = 1000, 
+        $iterations = 1000,
         $name = 'A simple benchmark',
         ResultPrinterInterface $resultPrinter = null,
         ResultPrunerInterface $resultPruner = null
@@ -69,8 +69,46 @@ class Benchmark implements BenchmarkInterface
     }
 
     /**
+     * Execute the registered tests and display the results
+     */
+    public function execute()
+    {
+        $this->resultPrinter->printIntro($this);
+
+        $results = array();
+        foreach ($this->tests as $test) {
+            $testResults = array();
+            for ($i = 0; $i < $this->iterations; $i++) {
+                $start = time() + microtime();
+                $test->run($this->parameters);
+                $testResults[] = round((time() + microtime()) - $start, 10);
+            }
+
+            $testResults = $this->resultPruner->prune($testResults);
+
+            $this->resultPrinter->printSingleResult($test, $testResults);
+            $results[$test->getName()] = $testResults;
+        }
+
+        $this->resultPrinter->printResultSummary($this, $results);
+
+        return $results;
+    }
+
+    /**
+     * Register a test
+     *
+     * @param string   $name     (Friendly) Name of the test
+     * @param callable $callable A valid callable
+     */
+    public function register($name, $callable)
+    {
+        $this->tests[] = new CallableTest($name, $callable);
+    }
+
+    /**
      * Set a single parameter
-     * 
+     *
      * @param $name
      * @param $value
      */
@@ -78,7 +116,7 @@ class Benchmark implements BenchmarkInterface
     {
         $this->parameters[$name] = $value;
     }
-    
+
     /**
      * @param array $parameters
      */
@@ -96,41 +134,13 @@ class Benchmark implements BenchmarkInterface
     }
 
     /**
-     * Register a test
+     * Add a Test to the Benchmark
      *
-     * @param string   $name     (Friendly) Name of the test
-     * @param callable $callable A valid callable
+     * @param TestInterface $test
      */
-    public function register($name, $callable)
+    public function addTest(TestInterface $test)
     {
-        $this->tests[] = new CallableTest($name, $callable);
-    }
-
-    /**
-     * Execute the registered tests and display the results
-     */
-    public function execute()
-    {
-        $this->resultPrinter->printIntro($this);
-        
-        $results = array();
-        foreach ($this->tests as $test) {
-            $testResults = array();
-            for ($i = 0; $i < $this->iterations; $i++) {
-                $start = time() + microtime();
-                $test->run($this->parameters);
-                $testResults[] = round((time() + microtime()) - $start, 10);
-            }
-
-            $testResults = $this->resultPruner->prune($testResults);
-            
-            $this->resultPrinter->printSingleResult($test, $testResults);
-            $results[$test->getName()] = $testResults;
-        }
-        
-        $this->resultPrinter->printResultSummary($this, $results);
-        
-        return $results;
+        $this->tests[] = $test;
     }
 
     /**
@@ -145,7 +155,7 @@ class Benchmark implements BenchmarkInterface
 
     /**
      * Get the Result Pruner
-     * 
+     *
      * @return \TylerSommer\Nice\Benchmark\ResultPrunerInterface
      */
     public function getResultPruner()
@@ -155,7 +165,7 @@ class Benchmark implements BenchmarkInterface
 
     /**
      * Get the Result Printer
-     * 
+     *
      * @return \TylerSommer\Nice\Benchmark\ResultPrinterInterface
      */
     public function getResultPrinter()
@@ -171,16 +181,6 @@ class Benchmark implements BenchmarkInterface
     public function getIterations()
     {
         return $this->iterations;
-    }
-
-    /**
-     * Add a Test to the Benchmark
-     *
-     * @param TestInterface $test
-     */
-    public function addTest(TestInterface $test)
-    {
-        $this->tests[] = $test;
     }
 
     /**
