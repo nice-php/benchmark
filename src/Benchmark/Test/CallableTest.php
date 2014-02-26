@@ -37,8 +37,9 @@ class CallableTest extends AbstractTest
     /**
      * Executes the test
      */
-    protected function doRun()
+    protected function doRun(array $parameters)
     {
-        call_user_func($this->test);
+        // TODO: Some Reflection of some kind?
+        call_user_func_array($this->test, array_values($parameters));
     }
 }

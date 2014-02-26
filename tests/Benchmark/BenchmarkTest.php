@@ -24,6 +24,26 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals(10, $count);
     }
+
+    /**
+     * A test with parameters
+     */
+    public function testTestWithParameters()
+    {
+        $called = false;
+
+        $benchmark = new Benchmark(1, new NullPrinter());
+        $benchmark->register('test', function($value) use (&$called) {
+                if ($value === 'a value') {
+                    $called = true;
+                }
+            });
+        $benchmark->setParameters(array('a value'));
+
+        $benchmark->execute();
+
+        $this->assertTrue($called);
+    }
 }
 
 class NullPrinter implements ResultPrinter

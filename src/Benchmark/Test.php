@@ -14,10 +14,11 @@ interface Test
 
     /**
      * Execute the test the specified number of times.
-     * 
-     * @param int $iterations
+     *
+     * @param int   $iterations
+     * @param array $parameters
      *
      * @return array|float[] Array of results
      */
-    public function run($iterations);
+    public function run($iterations, array $parameters = array());
 }

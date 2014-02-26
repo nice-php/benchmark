@@ -17,6 +17,11 @@ class Benchmark
     protected $iterations;
 
     /**
+     * @var array
+     */
+    protected $parameters = array();
+
+    /**
      * @var array|Test[]
      */
     protected $tests = array();
@@ -52,6 +57,33 @@ class Benchmark
     }
 
     /**
+     * Set a single parameter
+     * 
+     * @param $name
+     * @param $value
+     */
+    public function setParameter($name, $value)
+    {
+        $this->parameters[$name] = $value;
+    }
+    
+    /**
+     * @param array $parameters
+     */
+    public function setParameters(array $parameters)
+    {
+        $this->parameters = $parameters;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
      * Register a test
      *
      * @param string   $name     (Friendly) Name of the test
@@ -70,7 +102,9 @@ class Benchmark
         $this->resultPrinter->printIntro($this);
         
         foreach ($this->tests as $test) {
-            $results = $this->resultPruner->prune($test->run($this->iterations));
+            $results = $this->resultPruner->prune(
+                $test->run($this->iterations, $this->parameters)
+            );
 
             $this->resultPrinter->printSingleResult($test, $results);
             

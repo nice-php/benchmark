@@ -12,17 +12,18 @@ abstract class AbstractTest implements Test
     /**
      * Execute the test the specified number of times.
      *
-     * @param int $iterations
+     * @param int   $iterations
+     * @param array $parameters
      *
      * @return array|float[] Array of results
      */
-    public function run($iterations)
+    public function run($iterations, array $parameters = array())
     {
         $results = array();
         for ($i = 0; $i < $iterations; $i++) {
             $start = time() + microtime();
             
-            $this->doRun();
+            $this->doRun($parameters);
 
             $results[] = round((time() + microtime()) - $start, 10);
         }
@@ -33,5 +34,5 @@ abstract class AbstractTest implements Test
     /**
      * Executes the test
      */
-    abstract protected function doRun();
+    abstract protected function doRun(array $parameters);
 }
