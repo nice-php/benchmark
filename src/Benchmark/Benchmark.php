@@ -14,9 +14,9 @@ use TylerSommer\Nice\Benchmark\ResultPruner\StandardDeviationPruner;
 use TylerSommer\Nice\Benchmark\Test\CallableTest;
 
 /**
- * A Simple Operation Benchmark Class
+ * A simple operation Benchmark
  */
-class Benchmark
+class Benchmark implements BenchmarkInterface
 {
     /**
      * @var int
@@ -123,9 +123,13 @@ class Benchmark
         }
         
         $this->resultPrinter->printResultSummary($this, $this->results);
+        
+        return $this->results;
     }
 
     /**
+     * Get all registered Tests
+     *
      * @return array|\TylerSommer\Nice\Benchmark\TestInterface[]
      */
     public function getTests()
@@ -134,6 +138,8 @@ class Benchmark
     }
 
     /**
+     * Gets the Result Pruner
+     * 
      * @return \TylerSommer\Nice\Benchmark\ResultPrunerInterface
      */
     public function getResultPruner()
@@ -142,6 +148,8 @@ class Benchmark
     }
 
     /**
+     * Gets the Result Printer
+     * 
      * @return \TylerSommer\Nice\Benchmark\ResultPrinterInterface
      */
     public function getResultPrinter()
@@ -150,10 +158,22 @@ class Benchmark
     }
 
     /**
+     * Get the number of iterations the Benchmark should execute each test
+     *
      * @return int
      */
     public function getIterations()
     {
         return $this->iterations;
+    }
+
+    /**
+     * Add a Test to the Benchmark
+     *
+     * @param TestInterface $test
+     */
+    public function addTest(TestInterface $test)
+    {
+        $this->tests[] = $test;
     }
 }
