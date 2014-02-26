@@ -23,7 +23,7 @@ class NullPrinter implements ResultPrinterInterface
      *
      * @param Benchmark $benchmark
      */
-    public function printIntro(Benchmark $benchmark)
+    public function printBenchmarkIntro(Benchmark $benchmark)
     {
         // no op
     }
@@ -34,7 +34,7 @@ class NullPrinter implements ResultPrinterInterface
      * @param TestInterface $test
      * @param array         $results
      */
-    public function printSingleResult(TestInterface $test, array $results)
+    public function printSingleTestResult(TestInterface $test, array $results)
     {
         // no op
     }
@@ -45,7 +45,15 @@ class NullPrinter implements ResultPrinterInterface
      * @param Benchmark $benchmark
      * @param array     $results
      */
-    public function printResultSummary(Benchmark $benchmark, array $results)
+    public function printBenchmarkSummary(Benchmark $benchmark, array $results)
+    {
+        // no op
+    }
+
+    /**
+     * Prints a break, a separation between benchmarks
+     */
+    public function printBreak()
     {
         // no op
     }

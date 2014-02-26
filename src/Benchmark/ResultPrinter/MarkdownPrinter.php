@@ -25,7 +25,7 @@ class MarkdownPrinter implements ResultPrinterInterface
      *
      * @param Benchmark $benchmark
      */
-    public function printIntro(Benchmark $benchmark)
+    public function printBenchmarkIntro(Benchmark $benchmark)
     {
         printf("## %s\n\n", $benchmark->getName());
         printf(
@@ -42,7 +42,7 @@ class MarkdownPrinter implements ResultPrinterInterface
      * @param TestInterface $test
      * @param array         $results
      */
-    public function printSingleResult(TestInterface $test, array $results)
+    public function printSingleTestResult(TestInterface $test, array $results)
     {
         printf(
             "**%s** (%s runs): average time was %.10f seconds.\n",
@@ -57,7 +57,7 @@ class MarkdownPrinter implements ResultPrinterInterface
      *
      * @param array $results
      */
-    public function printResultSummary(Benchmark $benchmark, array $results)
+    public function printBenchmarkSummary(Benchmark $benchmark, array $results)
     {
         $results = array_map(function ($result) {
                 return array_sum($result) / count($result);
@@ -91,5 +91,13 @@ class MarkdownPrinter implements ResultPrinterInterface
                 $change
             );
         }
+    }
+
+    /**
+     * Prints a break, a separation between benchmarks
+     */
+    public function printBreak()
+    {
+        print("\n\n");
     }
 }

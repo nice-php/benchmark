@@ -73,7 +73,7 @@ class Benchmark implements BenchmarkInterface
      */
     public function execute()
     {
-        $this->resultPrinter->printIntro($this);
+        $this->resultPrinter->printBenchmarkIntro($this);
 
         $results = array();
         foreach ($this->tests as $test) {
@@ -86,11 +86,12 @@ class Benchmark implements BenchmarkInterface
 
             $testResults = $this->resultPruner->prune($testResults);
 
-            $this->resultPrinter->printSingleResult($test, $testResults);
+            $this->resultPrinter->printSingleTestResult($test, $testResults);
             $results[$test->getName()] = $testResults;
         }
 
-        $this->resultPrinter->printResultSummary($this, $results);
+        $this->resultPrinter->printBenchmarkSummary($this, $results);
+        $this->resultPrinter->printBreak();
 
         return $results;
     }

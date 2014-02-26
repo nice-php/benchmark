@@ -23,10 +23,10 @@ class SimplePrinter implements ResultPrinterInterface
      *
      * @param Benchmark $benchmark
      */
-    public function printIntro(Benchmark $benchmark)
+    public function printBenchmarkIntro(Benchmark $benchmark)
     {
         printf(
-            "Running \"%s\" consisting of %d tests, %d iterations...\n%s\n\n",
+            "Running \"%s\" consisting of %s tests, %s iterations...\n%s\n\n",
             $benchmark->getName(),
             number_format(count($benchmark->getTests())),
                 number_format($benchmark->getIterations()),
@@ -40,10 +40,10 @@ class SimplePrinter implements ResultPrinterInterface
      * @param TestInterface $test
      * @param array         $results
      */
-    public function printSingleResult(TestInterface $test, array $results)
+    public function printSingleTestResult(TestInterface $test, array $results)
     {
         printf(
-            "For %s out of %d runs, average time was %.10f seconds.\n",
+            "For %s out of %s runs, average time was %.10f seconds.\n",
             $test->getName(),
             number_format(count($results)),
             array_sum($results) / count($results)
@@ -55,7 +55,7 @@ class SimplePrinter implements ResultPrinterInterface
      *
      * @param array $results
      */
-    public function printResultSummary(Benchmark $benchmark, array $results)
+    public function printBenchmarkSummary(Benchmark $benchmark, array $results)
     {
         $format = "%-35s\t%-20s\t%-20s\t%s\n";
 
@@ -90,5 +90,13 @@ class SimplePrinter implements ResultPrinterInterface
                 $change
             );
         }
+    }
+
+    /**
+     * Prints a break, a separation between benchmarks
+     */
+    public function printBreak()
+    {
+        print("\n\n");
     }
 }
