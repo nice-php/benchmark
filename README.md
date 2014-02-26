@@ -10,9 +10,6 @@ A simple PHP benchmark, useful for the every day micro-optimizer.
 
 require __DIR__ . '/vendor/autoload.php';
 
-use TylerSommer\Nice\Benchmark\Benchmark;
-use TylerSommer\Nice\Benchmark\ResultPrinter\MarkdownPrinter;
-
 $benchmark = new Benchmark(100000);
 $benchmark->register('preg_match', function() {
         assert(preg_match('/^test/', 'testing'));
@@ -60,7 +57,6 @@ Create a file called `tests.php` in your project directory, and add:
 require __DIR__ . '/vendor/autoload.php';
 
 use TylerSommer\Nice\Benchmark\Benchmark;
-use TylerSommer\Nice\Benchmark\ResultPrinter\MarkdownPrinter;
 
 $arr = range(1, 10000);
 
