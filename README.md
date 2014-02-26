@@ -10,7 +10,7 @@ A simple PHP benchmark, useful for the every day micro-optimizer.
 
 require __DIR__ . '/vendor/autoload.php';
 
-$benchmark = new Benchmark(100000);
+$benchmark = new Benchmark(100000, 'String matching');
 $benchmark->register('preg_match', function() {
         assert(preg_match('/^test/', 'testing'));
     });
@@ -23,12 +23,11 @@ $benchmark->execute();
 ```
 
 ```
-Running 2 tests, 100000 times each...
-Values that fall outside of 3 standard deviations of the mean will be discarded.
+Running "String matching" consisting of 2 tests, 100,000 iterations...
+Values that fall outside of 3 standard deviations of the mean are discarded.
 
-For preg_match out of 98845 runs, average time was 0.0000118057 seconds.
-For strpos out of 97444 runs, average time was 0.0000104146 seconds.
-
+For preg_match out of 98,997 runs, average time was 0.0000118057 seconds.
+For strpos out of 99,871 runs, average time was 0.0000104146 seconds.
 
 Results:
 Test Name                          	Time                	+ Interval          	Change
@@ -80,11 +79,11 @@ Then run `tests.php` in your terminal:
 
 ```bash
 $ php tests.php
-Running 2 tests, 10000 times each...
-Values that fall outside of 3 standard deviations of the mean will be discarded.
+Running "foreach" consisting of 2 tests, 10,000 iterations...
+Values that fall outside of 3 standard deviations of the mean are discarded.
 
-For foreach with value out of 9711 runs, average time was 0.0011523914 seconds.
-For foreach with key, value out of 9720 runs, average time was 0.0016814657 seconds.
+For foreach with value out of 9,871 runs, average time was 0.0011523914 seconds.
+For foreach with key, value out of 9,874 runs, average time was 0.0016814657 seconds.
 
 
 Results:
