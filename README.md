@@ -59,7 +59,7 @@ use TylerSommer\Nice\Benchmark\Benchmark;
 
 $arr = range(1, 10000);
 
-$benchmark = new Benchmark(10000);
+$benchmark = new Benchmark(10000, 'foreach');
 $benchmark->register('foreach with value', function() use ($arr) {
         foreach ($arr as $value) {
         
