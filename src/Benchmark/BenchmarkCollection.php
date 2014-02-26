@@ -10,6 +10,11 @@ class BenchmarkCollection implements BenchmarkInterface
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $description = '';
+
+    /**
      * @var array|BenchmarkInterface[]
      */
     protected $benchmarks = array();
@@ -88,5 +93,21 @@ class BenchmarkCollection implements BenchmarkInterface
     public function getBenchmarks()
     {
         return $this->benchmarks;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = (string) $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

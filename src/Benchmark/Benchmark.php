@@ -24,6 +24,11 @@ class Benchmark implements BenchmarkInterface
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $description = '';
+
+    /**
      * @var int
      */
     protected $iterations;
@@ -222,5 +227,23 @@ class Benchmark implements BenchmarkInterface
     public function setResultPruner(ResultPrunerInterface $resultPruner)
     {
         $this->resultPruner = $resultPruner;
+    }
+
+    /**
+     * Get a short description about the Benchmark
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = (string) $description;
     }
 }

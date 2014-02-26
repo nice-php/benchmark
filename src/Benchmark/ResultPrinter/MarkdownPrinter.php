@@ -27,7 +27,11 @@ class MarkdownPrinter implements ResultPrinterInterface
      */
     public function printBenchmarkIntro(Benchmark $benchmark)
     {
-        printf("## %s\n\n", $benchmark->getName());
+        printf("## %s\n", $benchmark->getName());
+        if ($description = $benchmark->getDescription()) {
+            printf("%s\n", $description);
+        }
+        print("\n");
         printf(
             "This benchmark consists of %s tests. Each test is executed %s times, the results pruned, and then averaged. %s\n\n\n",
             number_format(count($benchmark->getTests())),
