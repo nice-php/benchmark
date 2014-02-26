@@ -19,6 +19,11 @@ use TylerSommer\Nice\Benchmark\Test\CallableTest;
 class Benchmark implements BenchmarkInterface
 {
     /**
+     * @var string
+     */
+    protected $name;
+    
+    /**
      * @var int
      */
     protected $iterations;
@@ -44,18 +49,23 @@ class Benchmark implements BenchmarkInterface
     private $resultPruner;
 
     /**
-     * @param int           $iterations    The number of iterations per test
+     * Constructor
+     * 
+     * @param int                    $iterations    The number of iterations per test
+     * @param string                 $name          The name of this Benchmark
      * @param ResultPrinterInterface $resultPrinter The ResultPrinterInterface to be used
      * @param ResultPrunerInterface  $resultPruner  The ResultPrunerInterface to be used
      */
     public function __construct(
         $iterations = 1000, 
+        $name = 'A simple benchmark',
         ResultPrinterInterface $resultPrinter = null,
         ResultPrunerInterface $resultPruner = null
     ) {
-        $this->iterations = $iterations;
+        $this->name          = (string) $name;
+        $this->iterations    = (int) $iterations;
         $this->resultPrinter = $resultPrinter ?: new SimplePrinter();
-        $this->resultPruner = $resultPruner ?: new StandardDeviationPruner();
+        $this->resultPruner  = $resultPruner  ?: new StandardDeviationPruner();
     }
 
     /**
@@ -134,7 +144,7 @@ class Benchmark implements BenchmarkInterface
     }
 
     /**
-     * Gets the Result Pruner
+     * Get the Result Pruner
      * 
      * @return \TylerSommer\Nice\Benchmark\ResultPrunerInterface
      */
@@ -144,7 +154,7 @@ class Benchmark implements BenchmarkInterface
     }
 
     /**
-     * Gets the Result Printer
+     * Get the Result Printer
      * 
      * @return \TylerSommer\Nice\Benchmark\ResultPrinterInterface
      */
@@ -171,6 +181,22 @@ class Benchmark implements BenchmarkInterface
     public function addTest(TestInterface $test)
     {
         $this->tests[] = $test;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = (string) $name;
     }
 
     /**

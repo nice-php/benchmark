@@ -23,7 +23,7 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
     {
         $count = 0;
         
-        $benchmark = new Benchmark(10, new NullPrinter());
+        $benchmark = new Benchmark(10, 'Test', new NullPrinter());
         $benchmark->register('test', function() use (&$count) {
                 $count++;
             });
@@ -40,7 +40,7 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
     {
         $called = false;
 
-        $benchmark = new Benchmark(1, new NullPrinter());
+        $benchmark = new Benchmark(1, 'Test', new NullPrinter());
         $benchmark->register('test', function($value) use (&$called) {
                 if ($value === 'a value') {
                     $called = true;

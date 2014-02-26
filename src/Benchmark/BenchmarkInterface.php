@@ -12,6 +12,13 @@ interface BenchmarkInterface
      * @param TestInterface $test
      */
     public function addTest(TestInterface $test);
+
+    /**
+     * Get the name of the Benchmark
+     * 
+     * @return string
+     */
+    public function getName();
     
     /**
      * Get all registered Tests
