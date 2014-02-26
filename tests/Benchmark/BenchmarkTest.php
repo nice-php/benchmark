@@ -21,16 +21,13 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
      */
     public function testSimpleTest()
     {
-        $count = 0;
-        
+        $test = $this->getMockForAbstractClass('TylerSommer\Nice\Benchmark\TestInterface');
+        $test->expects($this->exactly(10))
+            ->method('run');
         $benchmark = new Benchmark(10, 'Test', new NullPrinter());
-        $benchmark->register('test', function() use (&$count) {
-                $count++;
-            });
+        $benchmark->addTest($test);
         
         $benchmark->execute();
-        
-        $this->assertEquals(10, $count);
     }
 
     /**
@@ -38,18 +35,14 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
      */
     public function testTestWithParameters()
     {
-        $called = false;
-
-        $benchmark = new Benchmark(1, 'Test', new NullPrinter());
-        $benchmark->register('test', function($value) use (&$called) {
-                if ($value === 'a value') {
-                    $called = true;
-                }
-            });
+        $test = $this->getMockForAbstractClass('TylerSommer\Nice\Benchmark\TestInterface');
+        $test->expects($this->exactly(10))
+            ->method('run')
+            ->with(array('a value'));
+        $benchmark = new Benchmark(10, 'Test', new NullPrinter());
+        $benchmark->addTest($test);
         $benchmark->setParameters(array('a value'));
 
         $benchmark->execute();
-
-        $this->assertTrue($called);
     }
 }
