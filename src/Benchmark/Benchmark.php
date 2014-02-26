@@ -34,11 +34,6 @@ class Benchmark implements BenchmarkInterface
     protected $tests = array();
 
     /**
-     * @var array
-     */
-    protected $results = array();
-
-    /**
      * @var ResultPrinterInterface
      */
     private $resultPrinter;
@@ -108,23 +103,24 @@ class Benchmark implements BenchmarkInterface
     {
         $this->resultPrinter->printIntro($this);
         
+        $results = array();
         foreach ($this->tests as $test) {
-            $results = array();
+            $testResults = array();
             for ($i = 0; $i < $this->iterations; $i++) {
                 $start = time() + microtime();
                 $test->run($this->parameters);
-                $results[] = round((time() + microtime()) - $start, 10);
+                $testResults[] = round((time() + microtime()) - $start, 10);
             }
+
+            $testResults = $this->resultPruner->prune($testResults);
             
-            $results = $this->resultPruner->prune($results);
-            
-            $this->resultPrinter->printSingleResult($test, $results);
-            $this->results[$test->getName()] = $results;
+            $this->resultPrinter->printSingleResult($test, $testResults);
+            $results[$test->getName()] = $testResults;
         }
         
-        $this->resultPrinter->printResultSummary($this, $this->results);
+        $this->resultPrinter->printResultSummary($this, $results);
         
-        return $this->results;
+        return $results;
     }
 
     /**
@@ -175,5 +171,29 @@ class Benchmark implements BenchmarkInterface
     public function addTest(TestInterface $test)
     {
         $this->tests[] = $test;
+    }
+
+    /**
+     * @param int $iterations
+     */
+    public function setIterations($iterations)
+    {
+        $this->iterations = $iterations;
+    }
+
+    /**
+     * @param \TylerSommer\Nice\Benchmark\ResultPrinterInterface $resultPrinter
+     */
+    public function setResultPrinter($resultPrinter)
+    {
+        $this->resultPrinter = $resultPrinter;
+    }
+
+    /**
+     * @param \TylerSommer\Nice\Benchmark\ResultPrunerInterface $resultPruner
+     */
+    public function setResultPruner($resultPruner)
+    {
+        $this->resultPruner = $resultPruner;
     }
 }
