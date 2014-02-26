@@ -53,4 +53,3 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($called);
     }
 }
-

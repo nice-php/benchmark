@@ -42,9 +42,9 @@ class StandardDeviationPruner implements ResultPrunerInterface
         $lower = $mean - $deviation;
         $upper = $mean + $deviation;
         
-        return array_filter($results, function($val) use ($lower, $upper) {
+        return array_values(array_filter($results, function($val) use ($lower, $upper) {
                 return $val >= $lower && $val <= $upper;
-            });
+            }));
     }
 
     /**
