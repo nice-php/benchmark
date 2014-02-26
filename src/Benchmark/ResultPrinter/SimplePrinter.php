@@ -26,9 +26,10 @@ class SimplePrinter implements ResultPrinterInterface
     public function printIntro(Benchmark $benchmark)
     {
         printf(
-            "Running %d tests, %d times each...\n%s\n\n",
-            count($benchmark->getTests()),
-            $benchmark->getIterations(),
+            "Running \"%s\" consisting of %d tests, %d iterations...\n%s\n\n",
+            $benchmark->getName(),
+            number_format(count($benchmark->getTests())),
+                number_format($benchmark->getIterations()),
             $benchmark->getResultPruner()->getDescription()
         );
     }
@@ -44,7 +45,7 @@ class SimplePrinter implements ResultPrinterInterface
         printf(
             "For %s out of %d runs, average time was %.10f seconds.\n",
             $test->getName(),
-            count($results),
+            number_format(count($results)),
             array_sum($results) / count($results)
         );
     }

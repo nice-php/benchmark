@@ -73,6 +73,6 @@ class StandardDeviationPruner implements ResultPrunerInterface
      */
     public function getDescription()
     {
-        return sprintf('Values that fall outside of %s standard deviations of the mean will be discarded.', $this->deviations);
+        return sprintf('Values that fall outside of %s standard deviations of the mean are discarded.', $this->deviations);
     }
 }

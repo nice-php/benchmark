@@ -27,10 +27,11 @@ class MarkdownPrinter implements ResultPrinterInterface
      */
     public function printIntro(Benchmark $benchmark)
     {
+        printf("## %s\n\n", $benchmark->getName());
         printf(
-            "Running %d tests, %d times each...\n%s\n\n",
-            count($benchmark->getTests()),
-            $benchmark->getIterations(),
+            "This benchmark consists of %s tests. Each test is executed %s times, the results pruned, and then averaged. %s\n\n\n",
+            number_format(count($benchmark->getTests())),
+            number_format($benchmark->getIterations()),
             $benchmark->getResultPruner()->getDescription()
         );
     }
@@ -44,9 +45,9 @@ class MarkdownPrinter implements ResultPrinterInterface
     public function printSingleResult(TestInterface $test, array $results)
     {
         printf(
-            "For %s out of %d runs, average time was %.10f seconds.\n",
+            "**%s** (%s runs): average time was %.10f seconds.\n",
             $test->getName(),
-            count($results),
+            number_format(count($results)),
             array_sum($results) / count($results)
         );
     }
