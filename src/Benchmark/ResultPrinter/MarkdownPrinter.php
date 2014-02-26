@@ -48,12 +48,6 @@ class MarkdownPrinter implements ResultPrinterInterface
      */
     public function printSingleTestResult(TestInterface $test, array $results)
     {
-        printf(
-            "**%s** (%s runs): average time was %.10f seconds.\n",
-            $test->getName(),
-            number_format(count($results)),
-            array_sum($results) / count($results)
-        );
     }
 
     /**
@@ -63,18 +57,17 @@ class MarkdownPrinter implements ResultPrinterInterface
      */
     public function printBenchmarkSummary(Benchmark $benchmark, array $results)
     {
-        $results = array_map(function ($result) {
+        $averagedResults = array_map(function ($result) {
                 return array_sum($result) / count($result);
             }, $results);
 
-        $template = "%s | %s | %s | %s\n";
-        asort($results);
-        reset($results);
-        $fastestResult = each($results);
-        echo "\n\nResults:\n\n";
-        printf($template, "Test Name", "Time", "+ Interval", "Change");
-        printf($template, "---------", "----", "----------", "------");
-        foreach ($results as $name => $result) {
+        $template = "%s | %s | %s | %s | %s\n";
+        asort($averagedResults);
+        reset($averagedResults);
+        $fastestResult = each($averagedResults);
+        printf($template, "Test Name", "Results", "Time", "+ Interval", "Change");
+        printf($template, "---------", "-------", "----", "----------", "------");
+        foreach ($averagedResults as $name => $result) {
             $interval = $result - $fastestResult["value"];
             $change   = round((1 - $result / $fastestResult["value"]) * 100, 0);
             if ($change == 0) {
@@ -90,6 +83,7 @@ class MarkdownPrinter implements ResultPrinterInterface
             printf(
                 $template,
                 $name,
+                number_format(count($results[$name])),
                 sprintf("%.10f", $result),
                 "+" . sprintf("%.10f", $interval),
                 $change
