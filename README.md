@@ -1,6 +1,8 @@
 A nice PHP benchmark
 ====================
 
+[![Build Status](https://travis-ci.org/tyler-sommer/nice-bench.png?branch=master)](https://travis-ci.org/tyler-sommer/nice-bench)
+
 A simple PHP benchmark, useful for the every day micro-optimizer.
 
 ```php
