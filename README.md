@@ -1,23 +1,7 @@
-nice-bench
-==========
+A nice PHP benchmark
+====================
 
-A nice, simple PHP benchmark.
-
-Installation
-------------
-
-The recommended way to install Nice is through [Composer](http://getcomposer.org/). Just run the 
-`php composer.phar require` command in your project directory to install it:
-
-```bash
-php composer.phar require tyler-sommer/nice-bench:dev-master
-```
-
-
-Usage
------
-
-Create a file called `tests.php` in your project directory, and add:
+A simple PHP benchmark, useful for the every day micro-optimizer.
 
 ```php
 <?php
@@ -39,10 +23,7 @@ $benchmark->register('strpos', function() {
 $benchmark->execute();
 ```
 
-Then run `tests.php` in your terminal:
-
-```bash
-$ php tests.php
+```
 Running 2 tests, 100000 times each...
 Values that fall outside of 3 standard deviations of the mean will be discarded.
 
@@ -54,4 +35,62 @@ Results:
 Test Name                          	Time                	+ Interval          	Change
 strpos                             	0.0000104146        	+0.0000000000       	baseline
 preg_match                         	0.0000118057        	+0.0000013912       	13% slower
+```
+
+Installation
+------------
+
+The recommended way to install Nice Bench is through [Composer](http://getcomposer.org/). Just run the 
+`php composer.phar require` command in your project directory to install it:
+
+```bash
+php composer.phar require tyler-sommer/nice-bench:dev-master
+```
+
+Usage
+-----
+
+Create a file called `tests.php` in your project directory, and add:
+
+```php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use TylerSommer\Nice\Benchmark\Benchmark;
+use TylerSommer\Nice\Benchmark\ResultPrinter\MarkdownPrinter;
+
+$arr = range(1, 10000);
+
+$benchmark = new Benchmark(10000);
+$benchmark->register('foreach with value', function() use ($arr) {
+        foreach ($arr as $value) {
+        
+        }
+    });
+
+$benchmark->register('foreach with key, value', function() use ($arr) {
+        foreach ($arr as $key => $value) {
+            
+        }
+    });
+
+$benchmark->execute();
+```
+
+Then run `tests.php` in your terminal:
+
+```bash
+$ php tests.php
+Running 2 tests, 10000 times each...
+Values that fall outside of 3 standard deviations of the mean will be discarded.
+
+For foreach with value out of 9711 runs, average time was 0.0011523914 seconds.
+For foreach with key, value out of 9720 runs, average time was 0.0016814657 seconds.
+
+
+Results:
+Test Name                          	Time                	+ Interval          	Change
+foreach with value                 	0.0011523914        	+0.0000000000       	baseline
+foreach with key, value            	0.0016814657        	+0.0005290744       	46% slower
 ```
