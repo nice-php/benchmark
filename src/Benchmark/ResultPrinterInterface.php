@@ -10,9 +10,9 @@
 namespace TylerSommer\Nice\Benchmark;
 
 /**
- * Defines the contract any ResultPrinter must follow
+ * Defines the contract any ResultPrinterInterface must follow
  */
-interface ResultPrinter
+interface ResultPrinterInterface
 {
     /**
      * Outputs an introduction prior to test execution
@@ -24,10 +24,10 @@ interface ResultPrinter
     /**
      * Print the result of a single result
      * 
-     * @param Test  $test
+     * @param TestInterface  $test
      * @param array $results
      */
-    public function printSingleResult(Test $test, array $results);
+    public function printSingleResult(TestInterface $test, array $results);
 
     /**
      * Prints the completed benchmarks summary

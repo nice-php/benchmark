@@ -10,9 +10,9 @@
 namespace TylerSommer\Nice\Benchmark;
 
 /**
- * Defines the contract any ResultPruner must follow
+ * Defines the contract any ResultPrunerInterface must follow
  */
-interface ResultPruner
+interface ResultPrunerInterface
 {
     /**
      * Prune the results

@@ -10,8 +10,8 @@
 namespace TylerSommer\Nice\Tests\Benchmark;
 
 use TylerSommer\Nice\Benchmark\Benchmark;
-use TylerSommer\Nice\Benchmark\ResultPrinter;
-use TylerSommer\Nice\Benchmark\Test;
+use TylerSommer\Nice\Benchmark\ResultPrinterInterface;
+use TylerSommer\Nice\Benchmark\TestInterface;
 
 class BenchmarkTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,7 +53,7 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class NullPrinter implements ResultPrinter
+class NullPrinter implements ResultPrinterInterface
 {
     /**
      * Outputs an introduction prior to test execution
@@ -68,10 +68,10 @@ class NullPrinter implements ResultPrinter
     /**
      * Print the result of a single result
      *
-     * @param Test  $test
+     * @param TestInterface  $test
      * @param array $results
      */
-    public function printSingleResult(Test $test, array $results)
+    public function printSingleResult(TestInterface $test, array $results)
     {
         // no op
     }

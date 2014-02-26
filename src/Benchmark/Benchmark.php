@@ -29,7 +29,7 @@ class Benchmark
     protected $parameters = array();
 
     /**
-     * @var array|Test[]
+     * @var array|TestInterface[]
      */
     protected $tests = array();
 
@@ -39,24 +39,24 @@ class Benchmark
     protected $results = array();
 
     /**
-     * @var ResultPrinter
+     * @var ResultPrinterInterface
      */
     private $resultPrinter;
 
     /**
-     * @var ResultPruner
+     * @var ResultPrunerInterface
      */
     private $resultPruner;
 
     /**
      * @param int           $iterations    The number of iterations per test
-     * @param ResultPrinter $resultPrinter The ResultPrinter to be used
-     * @param ResultPruner  $resultPruner  The ResultPruner to be used
+     * @param ResultPrinterInterface $resultPrinter The ResultPrinterInterface to be used
+     * @param ResultPrunerInterface  $resultPruner  The ResultPrunerInterface to be used
      */
     public function __construct(
         $iterations = 1000, 
-        ResultPrinter $resultPrinter = null,
-        ResultPruner $resultPruner = null
+        ResultPrinterInterface $resultPrinter = null,
+        ResultPrunerInterface $resultPruner = null
     ) {
         $this->iterations = $iterations;
         $this->resultPrinter = $resultPrinter ?: new SimplePrinter();
@@ -109,12 +109,16 @@ class Benchmark
         $this->resultPrinter->printIntro($this);
         
         foreach ($this->tests as $test) {
-            $results = $this->resultPruner->prune(
-                $test->run($this->iterations, $this->parameters)
-            );
-
-            $this->resultPrinter->printSingleResult($test, $results);
+            $results = array();
+            for ($i = 0; $i < $this->iterations; $i++) {
+                $start = time() + microtime();
+                $test->run($this->parameters);
+                $results[] = round((time() + microtime()) - $start, 10);
+            }
             
+            $results = $this->resultPruner->prune($results);
+            
+            $this->resultPrinter->printSingleResult($test, $results);
             $this->results[$test->getName()] = $results;
         }
         
@@ -122,7 +126,7 @@ class Benchmark
     }
 
     /**
-     * @return array|\TylerSommer\Nice\Benchmark\Test[]
+     * @return array|\TylerSommer\Nice\Benchmark\TestInterface[]
      */
     public function getTests()
     {
@@ -130,7 +134,7 @@ class Benchmark
     }
 
     /**
-     * @return \TylerSommer\Nice\Benchmark\ResultPruner
+     * @return \TylerSommer\Nice\Benchmark\ResultPrunerInterface
      */
     public function getResultPruner()
     {
@@ -138,7 +142,7 @@ class Benchmark
     }
 
     /**
-     * @return \TylerSommer\Nice\Benchmark\ResultPrinter
+     * @return \TylerSommer\Nice\Benchmark\ResultPrinterInterface
      */
     public function getResultPrinter()
     {

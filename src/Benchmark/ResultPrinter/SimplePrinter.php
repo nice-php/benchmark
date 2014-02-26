@@ -10,13 +10,13 @@
 namespace TylerSommer\Nice\Benchmark\ResultPrinter;
 
 use TylerSommer\Nice\Benchmark\Benchmark;
-use TylerSommer\Nice\Benchmark\ResultPrinter;
-use TylerSommer\Nice\Benchmark\Test;
+use TylerSommer\Nice\Benchmark\ResultPrinterInterface;
+use TylerSommer\Nice\Benchmark\TestInterface;
 
 /**
- * A simple ResultPrinter
+ * A simple ResultPrinterInterface
  */
-class SimplePrinter implements ResultPrinter
+class SimplePrinter implements ResultPrinterInterface
 {
     /**
      * Outputs an introduction prior to test execution
@@ -36,10 +36,10 @@ class SimplePrinter implements ResultPrinter
     /**
      * Print the result of a single result
      *
-     * @param Test  $test
+     * @param TestInterface  $test
      * @param array $results
      */
-    public function printSingleResult(Test $test, array $results)
+    public function printSingleResult(TestInterface $test, array $results)
     {
         printf(
             "For %s out of %d runs, average time was %.10f seconds.\n",

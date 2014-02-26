@@ -9,7 +9,9 @@
 
 namespace TylerSommer\Nice\Benchmark\Test;
 
-class CallableTest extends AbstractTest
+use TylerSommer\Nice\Benchmark\TestInterface;
+
+class CallableTest implements TestInterface
 {
     /**
      * @var
@@ -42,9 +44,13 @@ class CallableTest extends AbstractTest
     }
 
     /**
-     * Executes the test
+     * Execute the test
+     *
+     * @param array $parameters
+     *
+     * @return array|float[] Array of results
      */
-    protected function doRun(array $parameters)
+    public function run(array $parameters = array())
     {
         // TODO: Some Reflection of some kind?
         call_user_func_array($this->test, array_values($parameters));

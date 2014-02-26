@@ -12,7 +12,7 @@ namespace TylerSommer\Nice\Benchmark;
 /**
  * Defines the contract any test must follow
  */
-interface Test
+interface TestInterface
 {
     /**
      * @return string
@@ -20,12 +20,11 @@ interface Test
     public function getName();
 
     /**
-     * Execute the test the specified number of times.
+     * Execute the test
      *
-     * @param int   $iterations
      * @param array $parameters
      *
      * @return array|float[] Array of results
      */
-    public function run($iterations, array $parameters = array());
+    public function run(array $parameters = array());
 }

@@ -9,9 +9,9 @@
 
 namespace TylerSommer\Nice\Benchmark\ResultPruner;
 
-use TylerSommer\Nice\Benchmark\ResultPruner;
+use TylerSommer\Nice\Benchmark\ResultPrunerInterface;
 
-class StandardDeviationPruner implements ResultPruner
+class StandardDeviationPruner implements ResultPrunerInterface
 {
     /**
      * @var int
