@@ -92,3 +92,5 @@ Test Name                          	Time                	+ Interval          	Ch
 foreach with value                 	0.0011523914        	+0.0000000000       	baseline
 foreach with key, value            	0.0016814657        	+0.0005290744       	46% slower
 ```
+
+For another example, check out [example.php](example/example.php).
