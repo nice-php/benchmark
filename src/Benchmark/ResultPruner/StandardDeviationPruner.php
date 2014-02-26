@@ -56,7 +56,7 @@ class StandardDeviationPruner implements ResultPruner
         $sum = array_reduce($results, $f, $initial);
         $n = count($results) - 1;
         
-        return sqrt($sum / $n);
+        return $n === 0 ? 0 : sqrt($sum / $n);
     }
 
     /**
