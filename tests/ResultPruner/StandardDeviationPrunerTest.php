@@ -7,9 +7,9 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Tests\Benchmark\ResultPruner;
+namespace Nice\Tests\Benchmark\ResultPruner;
 
-use TylerSommer\Nice\Benchmark\ResultPruner\StandardDeviationPruner;
+use Nice\Benchmark\ResultPruner\StandardDeviationPruner;
 
 class StandardDeviationPrunerTest extends \PHPUnit_Framework_TestCase
 {

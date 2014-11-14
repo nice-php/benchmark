@@ -7,7 +7,7 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Benchmark;
+namespace Nice\Benchmark;
 
 /**
  * Defines the contract any test must follow

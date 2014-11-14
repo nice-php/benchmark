@@ -55,7 +55,7 @@ Create a file called `tests.php` in your project directory, and add:
 
 require __DIR__ . '/vendor/autoload.php';
 
-use TylerSommer\Nice\Benchmark\Benchmark;
+use Nice\Benchmark\Benchmark;
 
 $arr = range(1, 10000);
 

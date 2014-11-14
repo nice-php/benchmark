@@ -7,11 +7,11 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Tests\Benchmark;
+namespace Nice\Tests\Benchmark;
 
-use TylerSommer\Nice\Benchmark\Benchmark;
-use TylerSommer\Nice\Benchmark\ResultPrinter\NullPrinter;
-use TylerSommer\Nice\Benchmark\TestInterface;
+use Nice\Benchmark\Benchmark;
+use Nice\Benchmark\ResultPrinter\NullPrinter;
+use Nice\Benchmark\TestInterface;
 
 class BenchmarkTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
      */
     public function testSimpleTest()
     {
-        $test = $this->getMockForAbstractClass('TylerSommer\Nice\Benchmark\TestInterface');
+        $test = $this->getMockForAbstractClass('Nice\Benchmark\TestInterface');
         $test->expects($this->exactly(10))
             ->method('run');
         $benchmark = new Benchmark(10, 'Test', new NullPrinter());
@@ -34,7 +34,7 @@ class BenchmarkTest extends \PHPUnit_Framework_TestCase
      */
     public function testTestWithParameters()
     {
-        $test = $this->getMockForAbstractClass('TylerSommer\Nice\Benchmark\TestInterface');
+        $test = $this->getMockForAbstractClass('Nice\Benchmark\TestInterface');
         $test->expects($this->exactly(10))
             ->method('run')
             ->with(array('a value'));

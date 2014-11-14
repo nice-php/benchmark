@@ -7,11 +7,11 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Benchmark;
+namespace Nice\Benchmark;
 
-use TylerSommer\Nice\Benchmark\ResultPrinter\SimplePrinter;
-use TylerSommer\Nice\Benchmark\ResultPruner\StandardDeviationPruner;
-use TylerSommer\Nice\Benchmark\Test\CallableTest;
+use Nice\Benchmark\ResultPrinter\SimplePrinter;
+use Nice\Benchmark\ResultPruner\StandardDeviationPruner;
+use Nice\Benchmark\Test\CallableTest;
 
 /**
  * A simple operation Benchmark
@@ -152,7 +152,7 @@ class Benchmark implements BenchmarkInterface
     /**
      * Get all registered Tests
      *
-     * @return array|\TylerSommer\Nice\Benchmark\TestInterface[]
+     * @return array|\Nice\Benchmark\TestInterface[]
      */
     public function getTests()
     {
@@ -162,7 +162,7 @@ class Benchmark implements BenchmarkInterface
     /**
      * Get the Result Pruner
      *
-     * @return \TylerSommer\Nice\Benchmark\ResultPrunerInterface
+     * @return \Nice\Benchmark\ResultPrunerInterface
      */
     public function getResultPruner()
     {
@@ -172,7 +172,7 @@ class Benchmark implements BenchmarkInterface
     /**
      * Get the Result Printer
      *
-     * @return \TylerSommer\Nice\Benchmark\ResultPrinterInterface
+     * @return \Nice\Benchmark\ResultPrinterInterface
      */
     public function getResultPrinter()
     {
@@ -214,7 +214,7 @@ class Benchmark implements BenchmarkInterface
     }
 
     /**
-     * @param \TylerSommer\Nice\Benchmark\ResultPrinterInterface $resultPrinter
+     * @param \Nice\Benchmark\ResultPrinterInterface $resultPrinter
      */
     public function setResultPrinter(ResultPrinterInterface $resultPrinter)
     {
@@ -222,7 +222,7 @@ class Benchmark implements BenchmarkInterface
     }
 
     /**
-     * @param \TylerSommer\Nice\Benchmark\ResultPrunerInterface $resultPruner
+     * @param \Nice\Benchmark\ResultPrunerInterface $resultPruner
      */
     public function setResultPruner(ResultPrunerInterface $resultPruner)
     {

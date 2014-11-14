@@ -7,7 +7,7 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Benchmark;
+namespace Nice\Benchmark;
 
 /**
  * A collection of Benchmarks
@@ -62,7 +62,7 @@ class BenchmarkCollection implements BenchmarkInterface
     /**
      * Get all registered Tests
      *
-     * @return array|\TylerSommer\Nice\Benchmark\TestInterface[]
+     * @return array|\Nice\Benchmark\TestInterface[]
      */
     public function getTests()
     {
@@ -90,7 +90,7 @@ class BenchmarkCollection implements BenchmarkInterface
     }
 
     /**
-     * @param array|\TylerSommer\Nice\Benchmark\BenchmarkInterface[] $benchmarks
+     * @param array|\Nice\Benchmark\BenchmarkInterface[] $benchmarks
      */
     public function setBenchmarks($benchmarks)
     {
@@ -98,7 +98,7 @@ class BenchmarkCollection implements BenchmarkInterface
     }
 
     /**
-     * @return array|\TylerSommer\Nice\Benchmark\BenchmarkInterface[]
+     * @return array|\Nice\Benchmark\BenchmarkInterface[]
      */
     public function getBenchmarks()
     {

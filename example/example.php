@@ -7,8 +7,8 @@
  * that was distributed with this source code.
  */
 
-use TylerSommer\Nice\Benchmark\Benchmark;
-use TylerSommer\Nice\Benchmark\BenchmarkCollection;
+use Nice\Benchmark\Benchmark;
+use Nice\Benchmark\BenchmarkCollection;
 
 require __DIR__ . '/../vendor/autoload.php';
 

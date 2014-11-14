@@ -7,11 +7,11 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Benchmark\ResultPrinter;
+namespace Nice\Benchmark\ResultPrinter;
 
-use TylerSommer\Nice\Benchmark\Benchmark;
-use TylerSommer\Nice\Benchmark\ResultPrinterInterface;
-use TylerSommer\Nice\Benchmark\TestInterface;
+use Nice\Benchmark\Benchmark;
+use Nice\Benchmark\ResultPrinterInterface;
+use Nice\Benchmark\TestInterface;
 
 /**
  * A simple ResultPrinterInterface

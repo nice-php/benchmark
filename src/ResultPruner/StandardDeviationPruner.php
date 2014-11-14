@@ -7,9 +7,9 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Benchmark\ResultPruner;
+namespace Nice\Benchmark\ResultPruner;
 
-use TylerSommer\Nice\Benchmark\ResultPrunerInterface;
+use Nice\Benchmark\ResultPrunerInterface;
 
 class StandardDeviationPruner implements ResultPrunerInterface
 {

@@ -7,9 +7,9 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Benchmark\Test;
+namespace Nice\Benchmark\Test;
 
-use TylerSommer\Nice\Benchmark\TestInterface;
+use Nice\Benchmark\TestInterface;
 
 class CallableTest implements TestInterface
 {

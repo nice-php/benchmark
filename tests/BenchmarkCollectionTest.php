@@ -7,10 +7,10 @@
  * that was distributed with this source code.
  */
 
-namespace TylerSommer\Nice\Tests\Benchmark;
+namespace Nice\Tests\Benchmark;
 
-use TylerSommer\Nice\Benchmark\Benchmark;
-use TylerSommer\Nice\Benchmark\BenchmarkCollection;
+use Nice\Benchmark\Benchmark;
+use Nice\Benchmark\BenchmarkCollection;
 
 class BenchmarkCollectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,12 +20,12 @@ class BenchmarkCollectionTest extends \PHPUnit_Framework_TestCase
     public function testSimpleTest()
     {
         $collection = new BenchmarkCollection('Test');
-        $benchmark = $this->getMockForAbstractClass('TylerSommer\Nice\Benchmark\BenchmarkInterface');
+        $benchmark = $this->getMockForAbstractClass('Nice\Benchmark\BenchmarkInterface');
         $benchmark->expects($this->once())
             ->method('execute')
             ->will($this->returnValue(array()));
 
-        $benchmarkTwo = $this->getMockForAbstractClass('TylerSommer\Nice\Benchmark\BenchmarkInterface');
+        $benchmarkTwo = $this->getMockForAbstractClass('Nice\Benchmark\BenchmarkInterface');
         $benchmarkTwo->expects($this->once())
             ->method('execute')
             ->will($this->returnValue(array()));
