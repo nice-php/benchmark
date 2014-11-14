@@ -10,6 +10,8 @@ A simple PHP benchmark, useful for the every day micro-optimizer.
 
 require __DIR__ . '/vendor/autoload.php';
 
+use Nice\Benchmark\Benchmark;
+
 $benchmark = new Benchmark(100000, 'String matching');
 $benchmark->register('preg_match', function() {
         assert(preg_match('/^test/', 'testing'));
