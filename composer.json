@@ -1,6 +1,6 @@
 {
-  "name": "tyler-sommer/nice-bench",
-  "description": "A nice PHP benchmarking framework",
+  "name": "nice/bench",
+  "description": "A simple PHP benchmarking framework",
   "license": "MIT",
   "require": {
     "php": ">=5.3.3"

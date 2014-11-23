@@ -44,7 +44,7 @@ The recommended way to install Nice Bench is through [Composer](http://getcompos
 `php composer.phar require` command in your project directory to install it:
 
 ```bash
-php composer.phar require tyler-sommer/nice-bench:dev-master
+php composer.phar require nice/bench:~1.0
 ```
 
 Usage
