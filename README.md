@@ -1,7 +1,7 @@
 A nice PHP benchmarking framework
 =================================
 
-[![Build Status](https://travis-ci.org/nice-php/nice-bench.png?branch=master)](https://travis-ci.org/nice-php/nice-bench)
+[![Build Status](https://travis-ci.org/nice-php/benchmark.png?branch=master)](https://travis-ci.org/nice-php/benchmark)
 
 A simple PHP benchmark, useful for the every day micro-optimizer.
 
