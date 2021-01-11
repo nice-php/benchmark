@@ -84,9 +84,9 @@ class Benchmark implements BenchmarkInterface
         foreach ($this->tests as $test) {
             $testResults = array();
             for ($i = 0; $i < $this->iterations; $i++) {
-                $start = time() + microtime();
+                $start = microtime(true);
                 $test->run($this->parameters);
-                $testResults[] = round((time() + microtime()) - $start, 10);
+                $testResults[] = round(microtime(true) - $start, 10);
             }
 
             $testResults = $this->resultPruner->prune($testResults);
